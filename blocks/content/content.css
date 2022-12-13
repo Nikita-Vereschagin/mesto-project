@@ -1,0 +1,7 @@
+.content {
+    grid-area: content;
+    display: grid;
+    grid-template-areas:
+        'profile'
+        'elements';
+}

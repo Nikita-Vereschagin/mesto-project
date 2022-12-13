@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./pages/index.css">
+  <title>Место</title>
+</head>
+<body class="page">
+  <header class="header">
+    <img class="header__image" src="./images/logo_white.svg" alt="Mesto_Russia">
+  </header>
+  <main class="content">
+    <section class="profile">
+      <figure class="profile__avatar"></figure>
+      <div class="profile__info">
+        <p class="profile__user-name">Жак-Ив Кусто</p>
+        <p class="profile__user-description">Исследователь океана</p>
+        <button class="profile__edit-button button-hover"></button>
+      </div>
+      <button class="profile__add-button button-hover"></button>
+    </section>
+    <section class="elements">
+      <figure class="element">
+        <img class="element__image" src="./images/pasha.jpg" alt="Жаль, что в лесу нет интернета ;(">
+        <figcaption class="element__container">
+          <p class="element__caption">21 когорта :)</p>
+          <button class="element__like"></button>
+        </figcaption>
+      </figure>
+      <figure class="element">
+        <img class="element__image" src="./images/problema.jpg" alt="Жаль, что в лесу нет интернета ;(">
+        <figcaption class="element__container">
+          <p class="element__caption">21 когорта :)</p>
+          <button class="element__like"></button>
+        </figcaption>
+      </figure>
+      <figure class="element">
+        <img class="element__image" src="./images/ded.jpg" alt="Жаль, что в лесу нет интернета ;(">
+        <figcaption class="element__container">
+          <p class="element__caption">21 когорта :)</p>
+          <button class="element__like"></button>
+        </figcaption>
+      </figure>
+      <figure class="element">
+        <img class="element__image" src="./images/chelik.jpg" alt="Жаль, что в лесу нет интернета ;(">
+        <figcaption class="element__container">
+          <p class="element__caption">21 когорта :)</p>
+          <button class="element__like"></button>
+        </figcaption>
+      </figure>
+      <figure class="element">
+        <img class="element__image" src="./images/fine.jpg" alt="Жаль, что в лесу нет интернета ;(">
+        <figcaption class="element__container">
+          <p class="element__caption">21 когорта :)</p>
+          <button class="element__like"></button>
+        </figcaption>
+      </figure>
+      <figure class="element">
+        <img class="element__image" src="./images/zhaba.jpg" alt="Жаль, что в лесу нет интернета ;(">
+        <figcaption class="element__container">
+          <p class="element__caption">21 когорта :)</p>
+          <button class="element__like"></button>
+        </figcaption>
+      </figure>
+    </section>
+  </main>
+  <footer class="footer">
+    <p class="footer__copyright">&copy;2020 Mesto Russia</p>
+  </footer>
+  <div class="popup popup_opened">
+    <form class="popup__container">
+      <button class="popup__close-icon button-hover"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <fieldset class="popup__user-name">
+        <input type="text" class="popup__edit-text" required placeholder="Жак-Ив Кусто">
+      </fieldset>
+      <fieldset class="popup__user-description">
+        <input type="text" class="popup__edit-text" required placeholder="Исследователь океана">
+      </fieldset>
+      <input type="submit" class="popup__submit-button">
+    </form>
+  </div>
+</body>
+</html>

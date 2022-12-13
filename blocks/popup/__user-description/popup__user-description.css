@@ -1,0 +1,14 @@
+.popup__user-description {
+    border: 0;
+    padding: 0;
+    width: 358px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    margin-bottom: 48px;
+}
+@media screen and (max-width: 580px) {
+    .popup__user-description {
+        width: 238px;
+        margin-bottom: 45px;
+    }
+}

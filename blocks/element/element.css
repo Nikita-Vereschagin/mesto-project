@@ -1,0 +1,22 @@
+.element {
+    max-width: 282px;
+    height: max-content;
+    border-radius: 10px;
+    background-color: white;  
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+    margin: 0;
+}
+@media screen and (max-width: 850px) {
+    .element {
+        max-width: 400px
+    }
+}
+@media screen and (max-width: 588px) {
+  .element {
+    max-width: 522px
+  }
+}
+
