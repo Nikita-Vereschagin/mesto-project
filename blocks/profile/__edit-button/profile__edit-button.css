@@ -12,6 +12,7 @@
     grid-column: 2/3;
     grid-row: 1/2;
     align-self: center;
+    transition: .7s;
 }
 @media screen and (max-width: 580px) {
     .profile__edit-button {

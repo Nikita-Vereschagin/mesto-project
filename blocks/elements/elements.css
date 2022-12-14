@@ -1,9 +1,10 @@
 .elements {
+    padding: 0;
     padding-top: 51px;
     width: 100%;
     display: grid;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template: repeat(autofit, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, 1fr);
     gap: 20px 17px;
     margin: 0 auto;
     justify-items: center;

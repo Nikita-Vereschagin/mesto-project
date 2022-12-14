@@ -10,6 +10,7 @@
     position: absolute;
     top: -40px;
     right: -40px;
+    transition: .7s;
 }
 @media screen and (max-width: 580px) {
     .popup__close-icon {

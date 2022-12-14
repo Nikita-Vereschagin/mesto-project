@@ -3,8 +3,8 @@
     border-radius: 50%;
     background-size: contain;
     margin: 0;
-    min-width: 140px;
-    min-height: 140px;
+    min-width: 120px;
+    min-height: 120px;
 }
 @media screen and (max-width: 768px) {
     .profile__avatar {

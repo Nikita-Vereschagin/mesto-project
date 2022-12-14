@@ -9,6 +9,8 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 22px 22px;
+    transition: .7s;
+    justify-self: end;
 }
 @media screen and (max-width: 768px) {
     .profile__add-button {
@@ -16,6 +18,7 @@
         grid-column: 2/3;
         grid-row: 2/3;
         width: 80%;
+        justify-self: center;
     }
 }
 @media screen and (max-width: 580px) {

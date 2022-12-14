@@ -1,0 +1,26 @@
+.popup__field {
+    border: 0;
+    padding: 0;
+    width: 358px;
+    margin: 0 auto;
+    border-bottom: 1px solid rgba(0,0,0,.2);
+    margin-top: 48px;
+    margin-bottom: 30px;
+    padding: 0;
+}
+.popup__field:last-of-type {
+    margin-top: 0;
+    margin-bottom: 48px;
+}
+@media screen and (max-width: 580px) {
+    .popup__field {
+        width: 238px;
+        margin-top: 69px;
+        margin-bottom: 30px;
+    }
+    .popup__field:last-of-type {
+        margin-top: 0;
+        margin-bottom: 45px;
+    }
+}
+/*отступы заменил, так как они не коректно даны в фигме*/

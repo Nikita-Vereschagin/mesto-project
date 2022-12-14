@@ -7,11 +7,17 @@
     grid-column: 1/2;
     grid-row: 1/2;
     padding-right: 18px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 330px;
 }
 @media screen and (max-width: 580px) {
     .profile__user-name {
         padding-right: 10px;
         font-size: 27px;
         line-height: 33px;
+        padding-left: 28px;
+        max-width: 190px;
     }
 }

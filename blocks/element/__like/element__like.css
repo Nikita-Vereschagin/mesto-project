@@ -8,13 +8,12 @@
     width: 22px;
     margin: auto 0;
     margin-right: 30px;
+    transition: .7s;
 }
 .element__like:hover {
     opacity: .5;
-    transition: .7s;
 }
 .element__like:active {
     background-image: url(../../../images/like-active.svg);
     opacity: 1;
-    transition: .7s;
 }

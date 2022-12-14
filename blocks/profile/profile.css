@@ -3,7 +3,7 @@
     width: 100%;
     height: max-content;
     display: grid;
-    grid-template-columns: max-content 1fr max-content;
+    grid-template-columns: max-content max-content 1fr;
     align-items: center;
     margin: 0 auto;
     min-height: 140px;
@@ -23,6 +23,7 @@
 }
 @media screen and (max-width: 580px) {
     .profile {
+        padding-top: 42px;
         max-width: 580px;
         width: 88.125%;
         grid-template-columns: 1fr;

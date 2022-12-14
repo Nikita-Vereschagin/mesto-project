@@ -2,7 +2,7 @@
     border: 0;
     padding: 0;
     width: 100%;
-    padding-bottom: 13px;
+    padding-bottom: 10px;/*не знаю почему, но в макете отступы отсчитываются с обрезанной буквой "У", поэтоум заменяю его на 10 пикселей, еслия  правильно посчитал*/
     font-family: 'Inter', Arial, sans-serif;
     font-style: normal;
     font-weight: 400;
