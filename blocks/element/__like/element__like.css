@@ -6,7 +6,7 @@
     background-image: url(../../../images/like.svg);
     height: 19px;
     width: 22px;
-    margin: auto 0;
+    margin: 0;
     margin-right: 30px;
     transition: .7s;
 }

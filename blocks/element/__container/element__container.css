@@ -1,5 +1,7 @@
 .element__container {
+    min-height: 79px;
     display: flex;
     margin: 0;
     justify-content: space-between;
+    align-items: center;
 }
