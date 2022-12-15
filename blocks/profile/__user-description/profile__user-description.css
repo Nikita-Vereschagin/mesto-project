@@ -15,10 +15,11 @@
 @media screen and (max-width: 580px) {
     .profile__user-description {
         text-align: center;
-        padding-top: 14px;
+        padding-top: 7px;
         font-size: 14px;
         line-height: 17px;
         justify-self: center;
         max-width: 180px;
     }
 }
+/*Может где-то ошибся в расчетах, но надеюсь все правильно расставил.*/

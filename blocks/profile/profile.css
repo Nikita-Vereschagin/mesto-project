@@ -4,9 +4,8 @@
     height: max-content;
     display: grid;
     grid-template-columns: max-content max-content 1fr;
-    align-items: center;
     margin: 0 auto;
-    min-height: 140px;
+    min-height: 120px;
     grid-area: profile;
 }
 @media screen and (max-width: 954px) {

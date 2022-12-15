@@ -11,6 +11,7 @@
     background-size: 22px 22px;
     transition: .7s;
     justify-self: end;
+    margin-top: 35px;
 }
 @media screen and (max-width: 768px) {
     .profile__add-button {
@@ -27,7 +28,7 @@
         grid-row: 3/4;
         max-width: 282px;
         width: 100%;
-        margin-top: 36px;
+        margin-top: 33px;
         background-size: 16px 16px;
     }
 }

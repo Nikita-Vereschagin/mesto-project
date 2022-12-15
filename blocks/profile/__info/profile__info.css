@@ -1,4 +1,5 @@
 .profile__info {
+    padding-top: 22px;
     display: grid;
     grid-template-columns: max-content 24px;
     grid-template-rows: max-content max-content;
