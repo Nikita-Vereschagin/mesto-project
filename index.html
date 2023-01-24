@@ -6,83 +6,82 @@
   <link rel="stylesheet" href="./pages/index.css">
   <title>Место</title>
 </head>
-  <!--С наступающим!-->
 <body class="page">
+  <!--Header-->
   <header class="header">
     <img class="header__logo" src="./images/logo_white.svg" alt="Mesto_Russia">
   </header>
   <main class="content">
+    <!--profile-->
     <section class="profile">
       <figure class="profile__avatar"></figure>
       <div class="profile__info">
         <h1 class="profile__user-name">Жак-Ив Кусто</h1>
         <p class="profile__user-description">Исследователь океана</p>
-        <button type="button" class="profile__edit-button button-hover"></button>
+        <button type="button" class="profile__edit-button button-hover" id="buttonEditProfilePopup"></button>
       </div>
-      <button type="button" class="profile__add-button button-hover"></button>
+      <button type="button" class="profile__add-button button-hover" id="buttonAddCardPopup"></button>
     </section>
+    <!--elements-->
     <section class="elements">
       <ul class="elements__container">
-        <li class="element">
-          <img class="element__image" src="./images/pasha.jpg" alt="Жаль, что в лесу нет интернета ;(">
-          <div class="element__container">
-            <h4 class="element__caption">21 когорта :)</h4>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/problema.jpg" alt="Жаль, что в лесу нет интернета ;(">
-          <div class="element__container">
-            <h4 class="element__caption">21 когорта :)</h4>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/ded.jpg" alt="Жаль, что в лесу нет интернета ;(">
-          <div class="element__container">
-            <h4 class="element__caption">21 когорта :)</h4>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/chelik.jpg" alt="Жаль, что в лесу нет интернета ;(">
-          <div class="element__container">
-            <h4 class="element__caption">21 когорта :)</h4>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/fine.jpg" alt="Жаль, что в лесу нет интернета ;(">
-          <div class="element__container">
-            <h4 class="element__caption">21 когорта :)</h4>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
-        <li class="element">
-          <img class="element__image" src="./images/zhaba.jpg" alt="Жаль, что в лесу нет интернета ;(">
-          <div class="element__container">
-            <h4 class="element__caption">21 когорта :)</h4>
-            <button type="button" class="element__like"></button>
-          </div>
-        </li>
       </ul>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">&copy;2020 Mesto Russia</p>
   </footer>
-  <div class="popup">
-    <form name="popup" class="popup__container">
+  <!--Попапы-->
+  
+  <div class="popup-box">
+    <div class="popup" id="overlayEditProfilePopup"></div>
+    <form name="popup" class="popup__container" id="editProfilePopup">
       <button type="button" class="popup__close-icon button-hover"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" required placeholder="Имя" name="user-name">
+        <input type="text" class="popup__edit-text" required placeholder="Имя" name="user-name" id="firstInput">
       </fieldset>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" required placeholder="О себе" name="user-description">
+        <input type="text" class="popup__edit-text" required placeholder="О себе" name="user-description" id="secondInput">
       </fieldset>
-      <button type="button" class="popup__submit-button">Сохранить</button>
+      <button type="submit" class="popup__submit-button" >Сохранить</button>
     </form>
   </div>
+  
+  <div class="popup-box">
+    <div class="popup" id="overlayAddCardPopup"></div>
+    <form name="popup" class="popup__container" id="addCardPopup">
+      <button type="button" class="popup__close-icon button-hover"></button>
+      <h3 class="popup__title">Новое место</h3>
+      <fieldset class="popup__field">
+        <input type="text" class="popup__edit-text" required placeholder="Название" name="place" id="firstInput">
+      </fieldset>
+      <fieldset class="popup__field">
+        <input type="text" class="popup__edit-text" required placeholder="Ссылка на картинку" name="src" id="secondInput">
+      </fieldset>
+      <button type="submit" class="popup__submit-button">Создать</button>
+    </form>
+  </div>
+  
+  <div class="popup-box">
+    <div class="popup-image__overlay"></div>
+    <form name="popup" class="popup-image">
+      <button type="button" class="popup__close-icon button-hover"></button>
+      <img class="popup-image__image" alt="Жаль, что в лесу нет интернета ;(">
+      <h3 class="popup-image__caption">/h3>
+    </form>
+  </div>
+  <!--Темплейт-->
+  <template id="template">
+    <li class="element">
+      <img class="element__image" alt="Жаль, что в лесу нет интернета ;(">
+      <button type="button" class="element__trash"></button>
+      <div class="element__container">
+        <h4 class="element__caption"></h4>>
+        <button type="button" class="element__like"></button>
+      </div>
+    </li>
+  </template>
+  <script src="./scripts/script.js"></script>
 </body>
 </html>

@@ -8,13 +8,9 @@
     width: 22px;
     margin: 0;
     margin-right: 30px;
-    transition: .7s;
+    transition: .4s;
 }
 .element__like:hover {
     opacity: .5;
     cursor: pointer;
-}
-.element__like:active {
-    background-image: url(../../../images/like-active.svg);
-    opacity: 1;
 }

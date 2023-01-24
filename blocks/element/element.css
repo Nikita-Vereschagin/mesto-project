@@ -1,14 +1,15 @@
 .element {
-    max-width: 282px;
-    height: max-content;
+    width: 282px;
+    object-fit: cover;
     border-radius: 10px;
     background-color: white;  
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     list-style-type: none;
+    position: relative;
 }
 @media screen and (max-width: 850px) {
     .element {
@@ -20,4 +21,3 @@
         max-width: 522px;
     }
 }
-

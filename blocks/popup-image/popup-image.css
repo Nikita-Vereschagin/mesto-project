@@ -1,0 +1,10 @@
+.popup-image {
+    display: flex;
+    position: fixed;
+    height: max-content;
+    width: max-content;
+    flex-direction: column;
+    transition: .2s;
+    visibility: hidden;
+    opacity: 0;
+}
