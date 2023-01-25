@@ -1,4 +1,9 @@
 .popup-image__image {
     max-width: 75vw;
     max-height: 75vh;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
 }

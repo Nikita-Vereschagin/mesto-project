@@ -1,51 +1,52 @@
 
 
-// обЪявление всех составляющих editProfilePopup
+// обЪявление всех составляющих popupEditProfile
 
-const overlayEditProfilePopup = document.querySelector('#overlayEditProfilePopup');
-const editProfilePopup = document.querySelector('#editProfilePopup');
-const userName = editProfilePopup.querySelector('#firstInput');
-const userDiscription = editProfilePopup.querySelector('#secondInput');
-const closeIconEditProfilePopup = editProfilePopup.querySelector('.popup__close-icon');
-const submitEditProfilePopup = editProfilePopup.querySelector('.popup__submit-button');
-const buttonEditProfilePopup = document.querySelector('#buttonEditProfilePopup');
+const popupEditProfileOverlay = document.querySelector('#overlayEditProfilePopup');
+const popupEditProfile = document.querySelector('#editProfilePopup');
+const userName = popupEditProfile.querySelector('#firstInput');
+const userDiscription = popupEditProfile.querySelector('#secondInput');
+const popupEditProfileCloseIcon = popupEditProfile.querySelector('.popup__close-icon');
+const popupEditProfileSubmit = popupEditProfile.querySelector('.popup__submit-button');
+const popupEditProfileButton = document.querySelector('#buttonEditProfilePopup');
 const userNameNow = document.querySelector('.profile__user-name');
 const userDiscriptionNow = document.querySelector('.profile__user-description');
 
 // обЪявление всех составляющих AddCardPopup
 
-const overlayAddCardPopup = document.querySelector('#overlayAddCardPopup');
-const addCardPopup = document.querySelector('#addCardPopup');
-const cardName = addCardPopup.querySelector('#firstInput');
-const cardImage = addCardPopup.querySelector('#secondInput');
-const closeIconAddCardPopup = addCardPopup.querySelector('.popup__close-icon');
-const submitAddCardPopup = addCardPopup.querySelector('.popup__submit-button');
-const buttonAddCardPopup = document.querySelector('#buttonAddCardPopup');
+const popupAddCardOverlay = document.querySelector('#overlayAddCardPopup');
+const popupAddCard = document.querySelector('#addCardPopup');
+const cardName = popupAddCard.querySelector('#firstInput');
+const cardImage = popupAddCard.querySelector('#secondInput');
+const popupAddCardCloseIcon = popupAddCard.querySelector('.popup__close-icon');
+const popupAddCardSubmit = popupAddCard.querySelector('.popup__submit-button');
+const popupAddCardButton = document.querySelector('#buttonAddCardPopup');
 
 // объявление всех составляющих openImagePopup
 
-const overlayOpenImagePopup = document.querySelector('.popup-image__overlay');
-const openImagePopup = document.querySelector('.popup-image');
-const imageName = openImagePopup.querySelector('.popup-image__caption');
-const imageSrc = openImagePopup.querySelector('.popup-image__image');
-const closeIconOpenImagePopup = openImagePopup.querySelector('.popup__close-icon');
+const popupOpenImageOverlay = document.querySelector('.popup-image__overlay');
+const popupOpenImage = document.querySelector('.popup-image');
+const imageName = popupOpenImage.querySelector('.popup-image__caption');
+const imageSrc = popupOpenImage.querySelector('.popup-image__image');
+const popupOpenImageCloseIcon = popupOpenImage.querySelector('.popup__close-icon');
 
 // открытие попапа
 
-function openPopup(elementOne, elementTwo) {
-  elementOne.classList.add('visibility');
-  elementTwo.classList.add('visibility');
+function openPopup(popupOverlay, popup) {
+  popupOverlay.classList.add('visibility');
+  popup.classList.add('visibility');
 }
-
-buttonEditProfilePopup.addEventListener('click', () => {
-  openPopup(overlayEditProfilePopup, editProfilePopup)
+popupEditProfileButton.addEventListener('click', () => {
+  openPopup(popupEditProfileOverlay, popupEditProfile);
   userName.value = userNameNow.textContent;
   userDiscription.value = userDiscriptionNow.textContent;
 });
 
-buttonAddCardPopup.addEventListener('click', () => { openPopup(overlayAddCardPopup, addCardPopup)});
-
-
+popupAddCardButton.addEventListener('click', () => { 
+  openPopup(popupAddCardOverlay, popupAddCard);
+  cardImage.value = ''
+  cardName.value = ''
+});
 
 // закрытие попапа
 
@@ -54,75 +55,40 @@ function closePopup(elementOne, elementTwo) {
   elementTwo.classList.remove('visibility');
 }
 
-closeIconEditProfilePopup.addEventListener('click', () => { closePopup(overlayEditProfilePopup, editProfilePopup) });
+popupEditProfileCloseIcon.addEventListener('click', () => { closePopup(popupEditProfileOverlay, popupEditProfile) });
 
-closeIconAddCardPopup.addEventListener('click', () => { closePopup(overlayAddCardPopup, addCardPopup) });
+popupAddCardCloseIcon.addEventListener('click', () => { closePopup(popupAddCardOverlay, popupAddCard) });
 
-closeIconOpenImagePopup.addEventListener('click', () => { closePopup(overlayOpenImagePopup, openImagePopup) });
+popupOpenImageCloseIcon.addEventListener('click', () => { closePopup(popupOpenImageOverlay, popupOpenImage) });
 
 // смена имени и описания
 
-function handleEditProfilePopup(evt) {
+function editProfilePopup(evt) {
   evt.preventDefault();
   userNameNow.textContent = userName.value;
   userDiscriptionNow.textContent = userDiscription.value;
-  closePopup(overlayEditProfilePopup, editProfilePopup);
+  closePopup(popupEditProfileOverlay, popupEditProfile);
 }
 
-editProfilePopup.addEventListener('submit', handleEditProfilePopup)
+popupEditProfile.addEventListener('submit', editProfilePopup)
 
-// карточки
+//функционал карточки
 
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  },
-  {
-    name: '21 когорта)',
-    link: './images/pasha.jpg'
-  },
-  {
-    name: '21 когорта)',
-    link: './images/ded.jpg'
-  },
-  {
-    name: '21 когорта)',
-    link: './images/chelik.jpg'
-  },
-  {
-    name: '21 когорта)',
-    link: './images/fine.jpg'
-  },
-  {
-    name: '21 когорта)',
-    link: './images/zhaba.jpg'
-  },
-  {
-    name: '21 когорта)',
-    link: './images/problema.jpg'
-  }
-];
+function createCard(card) {
+  card.querySelector('.element__like').addEventListener('click', (evt) => {
+    evt.target.classList.toggle('element__like_status_active');
+  });
+
+  card.querySelector('.element__trash').addEventListener('click', () => { card.remove() });
+
+  card.querySelector('.element__image').addEventListener('click', () => { 
+    openPopup(popupOpenImageOverlay, popupOpenImage);
+    imageSrc.src = card.querySelector('.element__image').src;
+    imageName.textContent = card.querySelector('.element__caption').textContent; 
+    
+  });
+  
+}
 
  //добавление карточек из массива выше
 
@@ -134,44 +100,27 @@ initialCards.forEach(function(el) {
   element.querySelector('.element__image').src = el.link;
   element.querySelector('.element__caption').textContent = el.name;
 
-  element.querySelector('.element__like').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__like_status_active');
-  });
-
-  element.querySelector('.element__trash').addEventListener('click', () => { element.remove() });
-
-  element.querySelector('.element__image').addEventListener('click', () => { 
-    openPopup(overlayOpenImagePopup, openImagePopup);
-    imageSrc.src = element.querySelector('.element__image').src;
-    imageName.textContent = element.querySelector('.element__caption').textContent; 
-  });
+  createCard(element);
 
   elContainer.prepend(element);
 });
 
 // Добавление карточек попапом
 
-function handleAddCardPopup(evt) {
+function addCard(evt) {
   evt.preventDefault();
   const element = elTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__image').src = cardImage.value;
   element.querySelector('.element__caption').textContent = cardName.value;
 
-  element.querySelector('.element__like').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('element__like_status_active');
-  });
+  createCard(element);
 
-  element.querySelector('.element__trash').addEventListener('click', () => { element.remove() });
-
-  element.querySelector('.element__image').addEventListener('click', () => { 
-    openPopup(overlayOpenImagePopup, openImagePopup);
-    imageSrc.src = element.querySelector('.element__image').src;
-    imageName.textContent = element.querySelector('.element__caption').textContent; 
-  });
+  closePopup(popupAddCardOverlay, popupAddCard);
 
   elContainer.prepend(element);
-
-  closePopup(overlayAddCardPopup, addCardPopup);
 }
 
-addCardPopup.addEventListener('submit', handleAddCardPopup);
+addCardPopup.addEventListener('submit', addCard);
+
+// Хотел бы поинтересоваться, по 6 пункту. Что не так с openPopup и closePopup? Эти функции универсальны, я не согласен с вами. У них общий для всех попапов функционал. Как аргументы они принимают фон попапа и сам попап. Я не думаю, что это ошибка.
+// На счёт alt. Он есть, присмотритесь. Согласен, что изначально он был белым по белому написан, но только у картинки в карточки. А так он присутствует, вроде, везде.
