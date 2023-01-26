@@ -8,7 +8,4 @@
     background: rgba(0,0,0,.5);
     position: fixed;
     display: flex;
-    opacity: 0;
-    visibility: hidden;
-    transition: .2s;
 }

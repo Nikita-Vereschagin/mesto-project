@@ -33,48 +33,48 @@
   </footer>
   <!--Попапы-->
   
-  <div class="popup-box">
-    <div class="popup" id="overlayEditProfilePopup"></div>
-    <form name="popup" class="popup__container" id="editProfilePopup">
+  <div class="popup-box" id="popupEditProfileBox">
+    <div class="popup"></div>
+    <form name="popup" class="popup__container">
       <button type="button" class="popup__close-icon button-hover"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" required placeholder="Имя" name="user-name" id="firstInput">
+        <input type="text" class="popup__edit-text" required placeholder="Имя" name="user-name" id="nameInput">
       </fieldset>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" required placeholder="О себе" name="user-description" id="secondInput">
+        <input type="text" class="popup__edit-text" required placeholder="О себе" name="user-description" id="selectorInput">
       </fieldset>
       <button type="submit" class="popup__submit-button" >Сохранить</button>
     </form>
   </div>
   
-  <div class="popup-box">
-    <div class="popup" id="overlayAddCardPopup"></div>
-    <form name="popup" class="popup__container" id="addCardPopup">
+  <div class="popup-box" id="popupAddCardBox">
+    <div class="popup"></div>
+    <form name="popup" class="popup__container">
       <button type="button" class="popup__close-icon button-hover"></button>
       <h3 class="popup__title">Новое место</h3>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" required placeholder="Название" name="place" id="firstInput">
+        <input type="text" class="popup__edit-text" required placeholder="Название" name="place" id="nameInput">
       </fieldset>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" required placeholder="Ссылка на картинку" name="src" id="secondInput">
+        <input type="text" class="popup__edit-text" required placeholder="Ссылка на картинку" name="src" id="selectorInput">
       </fieldset>
       <button type="submit" class="popup__submit-button">Создать</button>
     </form>
   </div>
   
-  <div class="popup-box">
+  <div class="popup-box" id="popupOpenImageBox">
     <div class="popup-image__overlay"></div>
-    <form name="popup" class="popup-image">
+    <div name="popup" class="popup-image">
       <button type="button" class="popup__close-icon button-hover"></button>
-      <img class="popup-image__image" alt="Жаль, что в лесу нет интернета ;(">
+      <img class="popup-image__image" >
       <h3 class="popup-image__caption">/h3>
     </form>
   </div>
   <!--Темплейт-->
   <template id="template">
     <li class="element">
-      <img class="element__image" alt="Жаль, что в лесу нет интернета ;(">
+      <img class="element__image">
       <button type="button" class="element__trash"></button>
       <div class="element__container">
         <h4 class="element__caption"></h4>>

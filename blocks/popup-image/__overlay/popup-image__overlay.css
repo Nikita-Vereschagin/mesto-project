@@ -2,7 +2,4 @@
     width: 100vw;
     height: 100vh;
     background: rgba(0, 0, 0, .9);
-    transition: .2s;
-    visibility: hidden;
-    opacity: 0;
 }

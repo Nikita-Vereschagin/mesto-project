@@ -7,8 +7,9 @@
     bottom: 0;
     position: fixed;
     display: flex;
-    transition: opacity .4s, visibility .4s;
+    transition: .2s;
     justify-content: center;
     align-items: center;
     visibility: hidden;
+    opacity: 0;
 }
