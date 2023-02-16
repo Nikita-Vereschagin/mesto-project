@@ -1,5 +1,15 @@
 // карточки
 
+const pasha = new URL('../images/pasha.jpg', import.meta.url);
+const ded = new URL('../images/ded.jpg', import.meta.url);
+const chelik = new URL('../images/chelik.jpg', import.meta.url);
+
+const fine = new URL('../images/fine.jpg', import.meta.url);
+const zhaba = new URL('../images/zhaba.jpg', import.meta.url);
+const problema = new URL('../images/problema.jpg', import.meta.url);
+
+
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -27,27 +37,27 @@ const initialCards = [
     },
     {
       name: '21 когорта)',
-      link: './images/pasha.jpg'
+      link: pasha
     },
     {
       name: '21 когорта)',
-      link: './images/ded.jpg'
+      link: ded
     },
     {
       name: '21 когорта)',
-      link: './images/chelik.jpg'
+      link: chelik
     },
     {
       name: '21 когорта)',
-      link: './images/fine.jpg'
+      link: fine
     },
     {
       name: '21 когорта)',
-      link: './images/zhaba.jpg'
+      link: zhaba
     },
     {
       name: '21 когорта)',
-      link: './images/problema.jpg'
+      link: problema
     }
   ];
-  
+export {initialCards}

@@ -3,14 +3,13 @@
     padding: 0;
     width: 358px;
     margin: 0 auto;
-    border-bottom: 1px solid rgba(0,0,0,.2);
     margin-top: 48px;
-    margin-bottom: 30px;
-    padding: 0;
+    padding-bottom: 30px;
+    position: relative;
 }
 .popup__field:last-of-type {
     margin-top: 0;
-    margin-bottom: 48px;
+    margin-bottom: 18px;
 }
 @media screen and (max-width: 580px) {
     .popup__field {
@@ -18,4 +17,3 @@
         margin-top: 69px;
     }
 }
-/*отступы заменил, так как они не коректно даны в фигме*/
