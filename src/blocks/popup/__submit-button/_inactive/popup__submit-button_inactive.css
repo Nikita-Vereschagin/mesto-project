@@ -1,7 +1,8 @@
 .popup__submit-button_inactive {
     background: rgb(255,255,255);
     border: 1px solid rgba(0,0,0,.2);
-    color:  rgba(0,0,0,.2)
+    color:  rgba(0,0,0,.2);
+    cursor: auto;
 }
 .popup__submit-button_inactive:hover {
     background: rgb(255,255,255);

@@ -4,13 +4,11 @@ export function enableValidation (config) {
     formEl.addEventListener('submit', evt => {
       evt.preventDefault()
     })
+    setEventListener(formEl, config)
   })
-  formList.forEach(field => {
-    addEventListener(field, config);
-  });
 }
 
-function addEventListener(formEl, config) {
+function setEventListener(formEl, config) {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector))
   const btn = formEl.querySelector(config.submitButtonSelector)
   btnStatus(inputList, btn, config)
@@ -49,18 +47,19 @@ function hideEror(formEl, inputEl, config) {
   erorEl.textContent = ''
 }
 
-function btnStatus(inputList, btn, config) {
-  if (hasInvalidInput(inputList)){
-    btn.classList.add(config.inactiveButtonClass)
-    btn.disabled = true;
-  }else {
-    btn.classList.remove(config.inactiveButtonClass)
-    btn.disabled = false;
-  }
-}
-
 function hasInvalidInput(inputList) {
-  return inputList.some(function(inputEl) {
+  return inputList.some(inputEl => {
     return !inputEl.validity.valid
   })
 }
+
+function btnStatus(inputList, btn, config) {
+  if (hasInvalidInput(inputList)){
+    btn.classList.add(config.inactiveButtonClass)
+    btn.disabled = true
+  }else {
+    btn.classList.remove(config.inactiveButtonClass)
+    btn.disabled = false
+  }
+}
+
