@@ -1,4 +1,6 @@
 import { rendorCard } from './utils.js';
+import {btnInactive} from './validate.js'
+import { hideEror } from './validate.js';
 
 // обЪявление всех составляющих popupEditProfile
 
@@ -11,7 +13,6 @@ const popupEditProfileCloseIcon = popupEditProfile.querySelector('.popup__close-
 const popupEditProfileButton = document.querySelector('#buttonEditProfilePopup');
 const userNameNow = document.querySelector('.profile__user-name');
 const userDiscriptionNow = document.querySelector('.profile__user-description');
-const popupEditProfileSubBtn = popupEditProfile.querySelector('.popup__submit-button')
 
 // обЪявление всех составляющих AddCardPopup
 
@@ -22,7 +23,6 @@ const cardName = popupAddCard.querySelector('#nameInput');
 const cardImage = popupAddCard.querySelector('#linkInput');
 const popupAddCardCloseIcon = popupAddCard.querySelector('.popup__close-icon');
 const popupAddCardButton = document.querySelector('#buttonAddCardPopup');
-const popupAddCardSubBtn = popupAddCard.querySelector('.popup__submit-button')
 
 // объявление всех составляющих openImagePopup
 
@@ -31,23 +31,31 @@ const popupOpenImageOverlay = popupOpenImageBox.querySelector('.popup-image__ove
 export const popupOpenImage = popupOpenImageBox.querySelector('.popup-image');
 const popupOpenImageCloseIcon = popupOpenImage.querySelector('.popup__close-icon');
 
+const config = {//Я не додумался до другого решения XD
+  inactiveButtonClass: 'popup__submit-button_inactive',
+  inputErrorClass: 'popup__edit-text_type_eror',
+  errorClass: 'popup__edit-text_eror'
+}
+
 // открытие попапа
 
 export function openPopup(popup) {
     popup.classList.add('visibility');
-    popup.addEventListener('keydown', closeByEsc(popup))
+    document.addEventListener('keydown', closeByEsc)
+    const btn = popup.querySelector('.popup__submit-button')
+    btnInactive(btn, config)
+    const inputEl = popup.querySelector('.popup__edit-text')
+    hideEror(popup, inputEl, config)
+    
   }
   popupEditProfileButton.addEventListener('click', () => {
-    popupEditProfileSubBtn.disabled = true
-    popupEditProfileSubBtn.classList.add('popup__submit-button_inactive')
+    //Моя логика такова. Когда пользователь открывает попап и хочет сменить имя в полях находятся нынешнии значения, а смысл пользователю сохранять одно и тоже. То есть,если пользователь ничего не меняет, то и сохранять ничего не нужно, а значит кнопка не активна.
     openPopup(popupEditProfileBox);
     userName.value = userNameNow.textContent;
     userDiscription.value = userDiscriptionNow.textContent;
   });
   
   popupAddCardButton.addEventListener('click', () => { 
-    popupAddCardSubBtn.disabled = true
-    popupAddCardSubBtn.classList.add('popup__submit-button_inactive')
     openPopup(popupAddCardBox);
     popupAddCard.reset()
   });
@@ -56,7 +64,7 @@ export function openPopup(popup) {
   
   function closePopup(popup) {
     popup.classList.remove('visibility');
-    popup.removeEventListener('keydown', closeByEsc(popup))
+    document.removeEventListener('keydown', closeByEsc)
   }
   
   popupEditProfileCloseIcon.addEventListener('click', () => { closePopup(popupEditProfileBox) });
@@ -68,14 +76,12 @@ export function openPopup(popup) {
   popupOpenImageCloseIcon.addEventListener('click', () => { closePopup(popupOpenImageBox) });
   popupOpenImageOverlay.addEventListener('click', () => { closePopup(popupOpenImageBox) });
   
-  function closeByEsc(popupBox){
-    document.addEventListener('keydown', (evt) =>{
+  function closeByEsc(evt){
     if (evt.key === 'Escape'){
-      closePopup(popupBox)
+      const activePopup = document.querySelector('.popup-box.visibility')
+      closePopup(activePopup)
     }
-  })
   }
-
 
   // смена имени и описания
 

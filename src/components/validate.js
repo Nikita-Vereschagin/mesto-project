@@ -8,7 +8,7 @@ export function enableValidation (config) {
   })
 }
 
-function setEventListener(formEl, config) {
+export function setEventListener(formEl, config) {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector))
   const btn = formEl.querySelector(config.submitButtonSelector)
   btnStatus(inputList, btn, config)
@@ -20,7 +20,7 @@ function setEventListener(formEl, config) {
   })
 }
 
-function checkValidity(formEl, inputEl, config) {
+export function checkValidity(formEl, inputEl, config) {
   if (inputEl.validity.patternMismatch) {
     inputEl.setCustomValidity("Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы");
   } else {
@@ -28,7 +28,7 @@ function checkValidity(formEl, inputEl, config) {
   }
   if (!(inputEl.validity.valid)) {
     showEror(formEl, inputEl, inputEl.validationMessage, config)
-  }else {
+  }else{
     hideEror(formEl, inputEl, config)
   }
 }
@@ -40,7 +40,7 @@ function showEror(formEl, inputEl, erorMsg, config) {
   erorEl.classList.add(config.errorClass)
 }
 
-function hideEror(formEl, inputEl, config) {
+export function hideEror(formEl, inputEl, config) {
   const erorEl = formEl.querySelector(`.${inputEl.id}-eror`)
   inputEl.classList.remove(config.inputErrorClass)
   erorEl.classList.remove(config.errorClass)
@@ -55,11 +55,18 @@ function hasInvalidInput(inputList) {
 
 function btnStatus(inputList, btn, config) {
   if (hasInvalidInput(inputList)){
-    btn.classList.add(config.inactiveButtonClass)
-    btn.disabled = true
+    btnInactive(btn, config)
   }else {
-    btn.classList.remove(config.inactiveButtonClass)
-    btn.disabled = false
+    btnActive(btn, config)
   }
 }
 
+function btnActive(btn, config){
+  btn.classList.remove(config.inactiveButtonClass)
+  btn.disabled = false
+}
+
+export function btnInactive(btn, config){
+  btn.classList.add(config.inactiveButtonClass)
+  btn.disabled = true
+}
