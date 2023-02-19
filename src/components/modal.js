@@ -1,6 +1,7 @@
 import { rendorCard } from './utils.js';
 import {btnInactive} from './validate.js'
 import { hideEror } from './validate.js';
+import { enableValidation } from './validate.js';
 
 // обЪявление всех составляющих popupEditProfile
 
@@ -31,36 +32,46 @@ const popupOpenImageOverlay = popupOpenImageBox.querySelector('.popup-image__ove
 export const popupOpenImage = popupOpenImageBox.querySelector('.popup-image');
 const popupOpenImageCloseIcon = popupOpenImage.querySelector('.popup__close-icon');
 
-const config = {//Я не додумался до другого решения XD
+const config = {
+  formSelector: '.popup__container',
+  inputSelector: '.popup__edit-text',
+  submitButtonSelector: '.popup__submit-button',
   inactiveButtonClass: 'popup__submit-button_inactive',
   inputErrorClass: 'popup__edit-text_type_eror',
   errorClass: 'popup__edit-text_eror'
 }
 
+enableValidation(config)
+
 // открытие попапа
 
 export function openPopup(popup) {
-    popup.classList.add('visibility');
-    document.addEventListener('keydown', closeByEsc)
+    popup.classList.add('visibility')
+    document.addEventListener('keydown', closeByEsc)    
+  }
+
+
+  popupEditProfileButton.addEventListener('click', () => {
+    openForm(popupEditProfileBox,config)
+    userName.value = userNameNow.textContent
+    userDiscription.value = userDiscriptionNow.textContent
+  });
+  
+  popupAddCardButton.addEventListener('click', () => { 
+    openForm(popupAddCardBox,config)
+    popupAddCard.reset()
+  });
+// на счет колбэков не очень понял. но всё ровно переделал фунцию, но не так, как вы хотели вроде бы.
+  function openForm(popup,config) {
     const btn = popup.querySelector('.popup__submit-button')
     btnInactive(btn, config)
     const inputEl = popup.querySelector('.popup__edit-text')
     hideEror(popup, inputEl, config)
-    
+    openPopup(popup)
   }
-  popupEditProfileButton.addEventListener('click', () => {
-    //Моя логика такова. Когда пользователь открывает попап и хочет сменить имя в полях находятся нынешнии значения, а смысл пользователю сохранять одно и тоже. То есть,если пользователь ничего не меняет, то и сохранять ничего не нужно, а значит кнопка не активна.
-    openPopup(popupEditProfileBox);
-    userName.value = userNameNow.textContent;
-    userDiscription.value = userDiscriptionNow.textContent;
-  });
-  
-  popupAddCardButton.addEventListener('click', () => { 
-    openPopup(popupAddCardBox);
-    popupAddCard.reset()
-  });
-  
   // закрытие попапа
+
+
   
   function closePopup(popup) {
     popup.classList.remove('visibility');

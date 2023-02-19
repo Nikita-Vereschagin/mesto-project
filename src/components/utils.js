@@ -23,8 +23,8 @@ function createCard(el) {
   
     element.querySelector('.element__trash').addEventListener('click', () => { element.remove() });
   
-    element.querySelector('.element__image').addEventListener('click', () => { 
-      clickOnEl(element)
+    elementImage.addEventListener('click', () => { 
+      clickOnEl(elementImage, elementCaption)
     });
     
     return element
@@ -33,11 +33,9 @@ export function rendorCard(el) {
   return elContainer.prepend(createCard(el))
 }
 
-function clickOnEl(element){
+function clickOnEl(elementImage, elementCaption){
   openPopup(popupOpenImageBox);
-  imageSrc.src = element.querySelector('.element__image').src;
-  imageName.textContent = element.querySelector('.element__caption').textContent; 
+  imageSrc.src = elementImage.src;
+  imageName.textContent = elementCaption.textContent; 
   imageSrc.alt = imageName.textContent
 }
-
-//Честно, не особо понял вас. Но надеюсь я сделал всё так, как вы хотели =)
