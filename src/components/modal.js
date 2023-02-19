@@ -51,12 +51,14 @@ export function openPopup(popup) {
   }
 
 
-  popupEditProfileButton.addEventListener('click', () => {
+  popupEditProfileButton.addEventListener('click', openPopupEditProfile);
+  
+  function openPopupEditProfile () {
     openForm(popupEditProfileBox,config)
     userName.value = userNameNow.textContent
     userDiscription.value = userDiscriptionNow.textContent
-  });
-  
+  }
+
   popupAddCardButton.addEventListener('click', () => { 
     openForm(popupAddCardBox,config)
     popupAddCard.reset()
