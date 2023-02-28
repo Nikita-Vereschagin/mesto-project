@@ -7,6 +7,8 @@ import './components/api.js';
 
 import { enableValidation } from './components/validate.js';
 
+
+
 enableValidation ({
     formSelector: '.popup__container',
     inputSelector: '.popup__edit-text',

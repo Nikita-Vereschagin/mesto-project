@@ -1,4 +1,5 @@
-import { rendorCard } from './utils.js';
+import { checkError } from "./utils"
+import { checkResponse } from "./utils"
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-21',
@@ -8,75 +9,63 @@ const config = {
   }
 }
 
+
+function request(endpoint, options) {
+  return fetch(config.baseUrl + endpoint, options).then(checkResponse).catch(checkError)
+}
+
 export function search(){
-  return fetch(`${config.baseUrl}/users/me`, {
-    headers: {
-      authorization: '8216fc24-a13e-4411-bcc5-fbbc352c50c0'
-    }
+  return request('/users/me', {
+    headers: config.headers
   })
 }
 
 export function getCardData(){
- return fetch(`${config.baseUrl}/cards`, {
-    headers: {authorization: '8216fc24-a13e-4411-bcc5-fbbc352c50c0'}
-  })
-  .then(res=>{
-    if (res.ok){
-      return res.json()
-    }
-    return Promise.reject(`Что-то пошло не так: ${res.status}`);
-  })
-  .catch((err)=>{console.log(err)})
+ return request('/cards', {headers: config.headers})
 }
 
-getCardData()
-  .then(data=>{
-    data.forEach(el => {
-      rendorCard(el, false)
-    });
-  })
-
-export function updateUserData(nameDate, aboutData){
-    return fetch(`${config.baseUrl}/users/me`, {
+export function updateUserData(nameDate, aboutData, avaData){
+    return request('/users/me', {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-        name: nameDate.textContent,
-        about: aboutData.textContent
+        name: nameDate,
+        about: aboutData,
+        avatar: avaData
       })
   })
 }
 
 export function addCardToServ(nameDate, linkData){
-    return fetch(`${config.baseUrl}/cards`, {
+    return request('/cards', {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
         name: nameDate,
-        link: linkData
+        link: linkData,
       })
     })
 }
 
 export function putLike(id){
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+  return request(`/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers
   })
-  .then(res =>{return res.json()})
 }
 
 export function deleteLike(id){
-  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
+  return request(`/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })
-  .then(res =>{return res.json()})
 }
 
 export function deleteCardFromServ(id){
-  return fetch(`${config.baseUrl}/cards/${id}`,{ 
+  return request(`/cards/${id}`,{ 
     method: 'DELETE',
     headers: config.headers
   })
 }
+
+// Здравствуйте, не могу понять, почему у меня не работает обновление аватарки и почему у меня не добавляются карточки. Вроде, всё остальное работает. И ещё, если вы примите мою работу, то можете, пожалуйста, её не подтверждать. Если я успею, я хотел бы сделать попап подтвержения удаления.

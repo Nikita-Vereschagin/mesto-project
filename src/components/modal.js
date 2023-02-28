@@ -2,9 +2,10 @@ import { rendorCard } from './utils.js';
 import { btnInactive } from './validate.js'
 import { hideEror } from './validate.js';
 import { enableValidation } from './validate.js';
-import { updateUserData } from './api.js';
+import { addCardToServ, updateUserData } from './api.js';
 import { getCardData } from './api.js';
 import { search } from './api.js';
+import { rendorLoading } from './utils.js';
 
 // обЪявление всех составляющих popupEditProfile
 
@@ -28,7 +29,7 @@ const cardName = popupAddCard.querySelector('#nameInput');
 const cardImage = popupAddCard.querySelector('#linkInput');
 const popupAddCardCloseIcon = popupAddCard.querySelector('.popup__close-icon');
 const popupAddCardButton = document.querySelector('#buttonAddCardPopup');
-const popupAddCardSubBtn = popupAddCard.querySelector('.popup__submit-button')
+export const popupAddCardSubBtn = popupAddCard.querySelector('.popup__submit-button')
 
 // объявление всех составляющих openImagePopup
 
@@ -43,7 +44,7 @@ const popupEditAvatar = popupEditAvatarBox.querySelector('.popup__container');
 const avaUrl = popupEditAvatar.querySelector('#avaInput');
 const popupEditAvatarCloseIcon = popupEditAvatar.querySelector('.popup__close-icon');
 const popupEditAvatarButton = document.querySelector('#popupEditAvatarButton');
-const avatar = document.querySelector('.profile__avatar-image');
+const ava = document.querySelector('.profile__avatar-image');
 const popupEditAvatarSubBtn = popupEditAvatar.querySelector('.popup__submit-button')
 
 const config = {
@@ -115,78 +116,66 @@ export function openPopup(popup) {
     }
   }
 
-  // смена имени и описания
-
-function editProfilePopup(evt) {
-    evt.preventDefault();
-    userNameNow.textContent = userName.value;
-    userDiscriptionNow.textContent = userDiscription.value;
-    
-    closePopup(popupEditProfileBox);
-  }
   
-  popupEditProfile.addEventListener('submit', (evt) =>{
-    rendorLoading(true, popupEditProfileSubBtn)
-    editProfilePopup(evt)
-    updateUserData(userNameNow, userDiscriptionNow)
-    .then(res => {
-      if(res.ok){return res.json()}
-      return Promise.reject(res.status)
-    })
-    .catch(err=>{
-      renderError(`Ошибка: ${err}`)
-    })
-    .finally(()=>{
-      rendorLoading(false, popupEditProfileSubBtn)
-    })
-  })
- 
   // Добавление карточек попапом
 
 function addCard(evt) {
     evt.preventDefault();
-    const newCard = {link: cardImage.value, name: cardName.value}
-    rendorCard(newCard, true)
-    closePopup(popupAddCardBox);
+    addCardToServ(cardName.value, cardImage.value)
+    .then((data)=>{
+      const newCard = {link: cardImage.value, name: cardName.value}
+      rendorCard(newCard)
+      closePopup(popupAddCardBox);
+      console.log(data)
+    })
   }
   
   popupAddCard.addEventListener('submit', (evt) =>{
     rendorLoading(true, popupAddCardSubBtn)
     addCard(evt)
-    getCardData()
-    .finally(()=>{
-      rendorLoading(false, popupAddCardSubBtn)
-    })
+    addCardToServ()
+    .finally(()=>{rendorLoading(false, popupAddCardSubBtn)})
   });
 
+// смена имени и описания
+
+function editProfilePopup(evt) {
+    evt.preventDefault();
+    updateUserData(userName.value, userDiscription.value)
+    .then(() =>{
+      userNameNow.textContent = userName.value;
+      userDiscriptionNow.textContent = userDiscription.value;
+      closePopup(popupEditProfileBox);
+    })
+  }
+
+  popupEditProfile.addEventListener('submit', (evt) =>{
+    rendorLoading(true, popupEditProfileSubBtn)
+    editProfilePopup(evt)
+    search()
+    .finally(()=>{rendorLoading(false, popupEditProfileSubBtn)})
+  })
+ 
   function editAva(evt) {
     evt.preventDefault();
-    avatar.src = avaUrl.value;
-    closePopup(popupEditAvatarBox);
+    updateUserData(userName.value, userDiscription.value, avaUrl.value)
+    .then(() => {
+      ava.src = avaUrl.value;
+      closePopup(popupEditAvatarBox);
+    })
   }
   
   popupEditAvatar.addEventListener('submit', (evt) => {
     rendorLoading(true, popupEditAvatarSubBtn)
     editAva(evt)
     search()
-    .then(res => {
-      if(res.ok){return res.json()}
-      return Promise.reject(res.status)
-    })
-    .catch(err=>{
-      renderError(`Ошибка: ${err}`)
-    })
-    .finally(()=>{
-      rendorLoading(false, popupEditAvatarSubBtn)
-    })
+    .finally(()=>{rendorLoading(false, popupEditAvatarSubBtn)})
   });
 
-  function rendorLoading(isLoading, btn){
-    if (isLoading){
-      btn.textContent = 'Сохранение...'
-    }else if(btn === popupAddCardButton){
-      btn.textContent = 'Создать'
-    }else{
-      btn.textContent = 'Сохранить'
-    }
-  }
+  search()
+  .then(data =>{
+    userNameNow.textContent = data.name
+    userDiscriptionNow.textContent = data.about
+    ava.src = data.avatar;
+    console.log(data.avatar)
+  })
