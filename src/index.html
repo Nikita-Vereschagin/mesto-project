@@ -13,7 +13,10 @@
   <main class="content">
     <!--profile-->
     <section class="profile">
-      <figure class="profile__avatar"></figure>
+      <figure class="profile__avatar">
+        <img class="profile__avatar-image" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg">
+        <button class="profile__edit-avatar button-hover" id="popupEditAvatarButton"></button>
+      </figure>
       <div class="profile__info">
         <h1 class="profile__user-name">Жак-Ив Кусто</h1>
         <p class="profile__user-description">Исследователь океана</p>
@@ -32,6 +35,19 @@
   </footer>
   <!--Попапы-->
   
+  <div class="popup-box" id="popupEditAvatarBox">
+    <div class="popup"></div>
+    <form name="popup" class="popup__container avatar-popup" novalidate>
+      <button type="button" class="popup__close-icon button-hover"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <fieldset class="popup__field">
+        <input type="url" class="popup__edit-text avatar-popup__url"  placeholder="Ссылка на картинку" name="src" id="avaInput" required>
+        <span class="avaInput-eror popup__edit-text_eror"></span>
+      </fieldset>
+      <button type="submit" class="popup__submit-button">Сохранить</button>
+    </form>
+  </div>
+
   <div class="popup-box" id="popupEditProfileBox">
     <div class="popup"></div>
     <form name="popup" class="popup__container" novalidate>
@@ -74,6 +90,7 @@
       <h3 class="popup-image__caption"></h3>
     </form>
   </div>
+
   <!--Темплейт-->
   <template id="template">
     <li class="element">
@@ -81,7 +98,10 @@
       <button type="button" class="element__trash"></button>
       <div class="element__container">
         <h4 class="element__caption"></h4>>
-        <button type="button" class="element__like"></button>
+        <div class="element__like-container">
+          <button type="button" class="element__like"></button>
+          <h5 class="element__like-number"></h5>
+        </div>
       </div>
     </li>
   </template>

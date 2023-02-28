@@ -1,7 +1,10 @@
 import { rendorCard } from './utils.js';
-import {btnInactive} from './validate.js'
+import { btnInactive } from './validate.js'
 import { hideEror } from './validate.js';
 import { enableValidation } from './validate.js';
+import { updateUserData } from './api.js';
+import { getCardData } from './api.js';
+import { search } from './api.js';
 
 // обЪявление всех составляющих popupEditProfile
 
@@ -14,6 +17,7 @@ const popupEditProfileCloseIcon = popupEditProfile.querySelector('.popup__close-
 const popupEditProfileButton = document.querySelector('#buttonEditProfilePopup');
 const userNameNow = document.querySelector('.profile__user-name');
 const userDiscriptionNow = document.querySelector('.profile__user-description');
+const popupEditProfileSubBtn = popupEditProfile.querySelector('.popup__submit-button')
 
 // обЪявление всех составляющих AddCardPopup
 
@@ -24,6 +28,7 @@ const cardName = popupAddCard.querySelector('#nameInput');
 const cardImage = popupAddCard.querySelector('#linkInput');
 const popupAddCardCloseIcon = popupAddCard.querySelector('.popup__close-icon');
 const popupAddCardButton = document.querySelector('#buttonAddCardPopup');
+const popupAddCardSubBtn = popupAddCard.querySelector('.popup__submit-button')
 
 // объявление всех составляющих openImagePopup
 
@@ -31,6 +36,15 @@ export const popupOpenImageBox = document.querySelector('#popupOpenImageBox');
 const popupOpenImageOverlay = popupOpenImageBox.querySelector('.popup-image__overlay');
 export const popupOpenImage = popupOpenImageBox.querySelector('.popup-image');
 const popupOpenImageCloseIcon = popupOpenImage.querySelector('.popup__close-icon');
+
+const popupEditAvatarBox = document.querySelector('#popupEditAvatarBox')
+const popupEditAvatarOverlay = popupEditAvatarBox.querySelector('.popup');
+const popupEditAvatar = popupEditAvatarBox.querySelector('.popup__container');
+const avaUrl = popupEditAvatar.querySelector('#avaInput');
+const popupEditAvatarCloseIcon = popupEditAvatar.querySelector('.popup__close-icon');
+const popupEditAvatarButton = document.querySelector('#popupEditAvatarButton');
+const avatar = document.querySelector('.profile__avatar-image');
+const popupEditAvatarSubBtn = popupEditAvatar.querySelector('.popup__submit-button')
 
 const config = {
   formSelector: '.popup__container',
@@ -50,7 +64,6 @@ export function openPopup(popup) {
     document.addEventListener('keydown', closeByEsc)    
   }
 
-
   popupEditProfileButton.addEventListener('click', openPopupEditProfile);
   
   function openPopupEditProfile () {
@@ -63,7 +76,7 @@ export function openPopup(popup) {
     openForm(popupAddCardBox,config)
     popupAddCard.reset()
   });
-// на счет колбэков не очень понял. но всё ровно переделал фунцию, но не так, как вы хотели вроде бы.
+
   function openForm(popup,config) {
     const btn = popup.querySelector('.popup__submit-button')
     btnInactive(btn, config)
@@ -71,9 +84,12 @@ export function openPopup(popup) {
     hideEror(popup, inputEl, config)
     openPopup(popup)
   }
+
+  popupEditAvatarButton.addEventListener('click',() => { 
+    openForm(popupEditAvatarBox,config)
+    popupEditAvatar.reset()
+  });
   // закрытие попапа
-
-
   
   function closePopup(popup) {
     popup.classList.remove('visibility');
@@ -85,6 +101,9 @@ export function openPopup(popup) {
   
   popupAddCardCloseIcon.addEventListener('click', () => { closePopup(popupAddCardBox) });
   popupAddCardOverlay.addEventListener('click', () => { closePopup(popupAddCardBox) });
+  
+  popupEditAvatarCloseIcon.addEventListener('click', () => { closePopup(popupEditAvatarBox) });
+  popupEditAvatarOverlay.addEventListener('click', () => { closePopup(popupEditAvatarBox) });
   
   popupOpenImageCloseIcon.addEventListener('click', () => { closePopup(popupOpenImageBox) });
   popupOpenImageOverlay.addEventListener('click', () => { closePopup(popupOpenImageBox) });
@@ -102,22 +121,72 @@ function editProfilePopup(evt) {
     evt.preventDefault();
     userNameNow.textContent = userName.value;
     userDiscriptionNow.textContent = userDiscription.value;
+    
     closePopup(popupEditProfileBox);
   }
   
-  popupEditProfile.addEventListener('submit', editProfilePopup)
-
+  popupEditProfile.addEventListener('submit', (evt) =>{
+    rendorLoading(true, popupEditProfileSubBtn)
+    editProfilePopup(evt)
+    updateUserData(userNameNow, userDiscriptionNow)
+    .then(res => {
+      if(res.ok){return res.json()}
+      return Promise.reject(res.status)
+    })
+    .catch(err=>{
+      renderError(`Ошибка: ${err}`)
+    })
+    .finally(()=>{
+      rendorLoading(false, popupEditProfileSubBtn)
+    })
+  })
+ 
   // Добавление карточек попапом
 
 function addCard(evt) {
     evt.preventDefault();
-  
     const newCard = {link: cardImage.value, name: cardName.value}
-    rendorCard(newCard)
-    
+    rendorCard(newCard, true)
     closePopup(popupAddCardBox);
   }
   
-  popupAddCard.addEventListener('submit', addCard);
+  popupAddCard.addEventListener('submit', (evt) =>{
+    rendorLoading(true, popupAddCardSubBtn)
+    addCard(evt)
+    getCardData()
+    .finally(()=>{
+      rendorLoading(false, popupAddCardSubBtn)
+    })
+  });
 
-  // На счёт сборки проекта. Она работает, по крайней мере у меня.
+  function editAva(evt) {
+    evt.preventDefault();
+    avatar.src = avaUrl.value;
+    closePopup(popupEditAvatarBox);
+  }
+  
+  popupEditAvatar.addEventListener('submit', (evt) => {
+    rendorLoading(true, popupEditAvatarSubBtn)
+    editAva(evt)
+    search()
+    .then(res => {
+      if(res.ok){return res.json()}
+      return Promise.reject(res.status)
+    })
+    .catch(err=>{
+      renderError(`Ошибка: ${err}`)
+    })
+    .finally(()=>{
+      rendorLoading(false, popupEditAvatarSubBtn)
+    })
+  });
+
+  function rendorLoading(isLoading, btn){
+    if (isLoading){
+      btn.textContent = 'Сохранение...'
+    }else if(btn === popupAddCardButton){
+      btn.textContent = 'Создать'
+    }else{
+      btn.textContent = 'Сохранить'
+    }
+  }

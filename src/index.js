@@ -3,6 +3,7 @@ import './components/validate.js';
 import './components/card.js';
 import './components/modal.js';
 import './components/utils.js';
+import './components/api.js';
 
 import { enableValidation } from './components/validate.js';
 
