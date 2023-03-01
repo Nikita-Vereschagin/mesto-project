@@ -121,20 +121,19 @@ export function openPopup(popup) {
 
 function addCard(evt) {
     evt.preventDefault();
-    addCardToServ(cardName.value, cardImage.value)
+    const newCard = {link: cardImage.value, name: cardName.value}
+    addCardToServ(newCard.name, newCard.link)
     .then((result)=>{
-      const newCard = {link: cardImage.value, name: cardName.value}
-      rendorCard(newCard, result.likes.length, 'bb12d784f20a16c7281b0c6e')
+      rendorCard(newCard, result.likes.length, result._id)
       closePopup(popupAddCardBox);
-      console.log(result.likes.length)
     })
+    .finally(()=>{rendorLoading(false, popupAddCardSubBtn)})
   }
   
   popupAddCard.addEventListener('submit', (evt) =>{
     rendorLoading(true, popupAddCardSubBtn)
     addCard(evt)
-    addCardToServ()
-    .finally(()=>{rendorLoading(false, popupAddCardSubBtn)})
+    
   });
 
 // смена имени и описания
@@ -142,47 +141,43 @@ function addCard(evt) {
 
 function editProfilePopup(evt) {
     evt.preventDefault();
-    updateUserData(userName.value, userDiscription.value, avaUrl.value)
+    updateUserData(userName.value, userDiscription.value, ava.src)
     .then((data) =>{
       userNameNow.textContent = userName.value;
       userDiscriptionNow.textContent = userDiscription.value;
       closePopup(popupEditProfileBox);
-      console.log(data)
+      return data
     }) 
+    .finally(()=>{rendorLoading(false, popupEditProfileSubBtn)})   
   }
 
   popupEditProfile.addEventListener('submit', (evt) =>{
     rendorLoading(true, popupEditProfileSubBtn)
-    editProfilePopup(evt)
-    search()
-    .finally(()=>{
-      rendorLoading(false, popupEditProfileSubBtn)
-    })      
+    editProfilePopup(evt)    
   })
 
 // Смена аватара 
 
   function editAva(evt) {
     evt.preventDefault();
-    updateUserData(userName.value, userDiscription.value, avaUrl.value)
+    updateUserData(userNameNow.textContent, userDiscriptionNow.textContent, avaUrl.value)
     .then((data) => {
       ava.src = avaUrl.value;
       closePopup(popupEditAvatarBox);
       console.log(data)
     })
+    .finally(()=>{rendorLoading(false, popupEditAvatarSubBtn)})
   }
   
   popupEditAvatar.addEventListener('submit', (evt) => {
     rendorLoading(true, popupEditAvatarSubBtn)
-    editAva(evt)
-    search()
-    .finally(()=>{rendorLoading(false, popupEditAvatarSubBtn)})
+    editAva(evt)   
   });
 
   search()
   .then(data =>{
-    userNameNow.textContent = data.name
-    userDiscriptionNow.textContent = data.about
+    userNameNow.textContent = data.name;
+    userDiscriptionNow.textContent = data.about;
     ava.src = data.avatar;
     return data
   })
