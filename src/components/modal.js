@@ -3,7 +3,7 @@ import { btnInactive } from './validate.js'
 import { hideEror } from './validate.js';
 import { enableValidation } from './validate.js';
 import { addCardToServ, updateUserData } from './api.js';
-
+import { updateAva } from './api.js';
 import { search } from './api.js';
 import { rendorLoading } from './utils.js';
 
@@ -160,7 +160,7 @@ function editProfilePopup(evt) {
 
   function editAva(evt) {
     evt.preventDefault();
-    updateUserData(userNameNow.textContent, userDiscriptionNow.textContent, avaUrl.value)
+    updateAva(avaUrl.value)
     .then((data) => {
       ava.src = avaUrl.value;
       closePopup(popupEditAvatarBox);

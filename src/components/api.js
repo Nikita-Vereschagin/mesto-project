@@ -24,14 +24,23 @@ export function getCardData(){
  return request('/cards', {headers: config.headers})
 }
 
-export function updateUserData(nameDate, aboutData, avaData){
+export function updateUserData(nameDate, aboutData){
     return request('/users/me', {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
         name: nameDate,
         about: aboutData,
-        avatar: avaData
+      })
+  })
+}
+
+export function updateAva(avaData){
+  return request('/users/me/avatar ', {
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+        avatar: avaData,
       })
   })
 }
@@ -67,5 +76,3 @@ export function deleteCardFromServ(id){
     headers: config.headers
   })
 }
-
-// Здравствуйте, не могу понять, почему у меня не работает обновление аватарки. И ещё, если вы примите мою работу, то можете, пожалуйста, её не подтверждать. Если я успею, я хотел бы сделать попап подтвержения удаления.
