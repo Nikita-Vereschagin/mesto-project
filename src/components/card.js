@@ -7,22 +7,23 @@ import { deleteLike } from './api.js';
 import { getCardData } from './api.js';
 import { rendorCard } from './utils.js';
 
-getCardData()
-.then(data=>{
-  data.forEach(el => {
-    rendorCard(el, el.likes.length, el._id)
-    if (el.owner._id !== "bb12d784f20a16c7281b0c6e"){
-        document.querySelector('.element__trash').style.display = 'none'
-    }else{
-        document.querySelector('.element__trash').style.display = 'flex'
-    }
-    el.likes.forEach(arr =>{
-        if (arr._id === 'bb12d784f20a16c7281b0c6e'){
-            document.querySelector('.element__like').classList.add('element__like_status_active')
+    getCardData()
+    .then(data=>{
+    data.forEach(el => {
+        rendorCard(el, el.likes.length, el._id)
+        if (el.owner._id !== "bb12d784f20a16c7281b0c6e"){
+            document.querySelector('.element__trash').style.display = 'none'
+        }else{
+            document.querySelector('.element__trash').style.display = 'flex'
         }
+        el.likes.forEach(arr =>{
+            if (arr._id === 'bb12d784f20a16c7281b0c6e'){
+                document.querySelector('.element__like').classList.add('element__like_status_active')
+            }
+        })
+    });
     })
-  });
-})
+
 
 const elTemplate = document.querySelector('#template').content;
 

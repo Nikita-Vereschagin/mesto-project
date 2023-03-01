@@ -3,7 +3,7 @@ import { btnInactive } from './validate.js'
 import { hideEror } from './validate.js';
 import { enableValidation } from './validate.js';
 import { addCardToServ, updateUserData } from './api.js';
-import { getCardData } from './api.js';
+
 import { search } from './api.js';
 import { rendorLoading } from './utils.js';
 
@@ -122,11 +122,11 @@ export function openPopup(popup) {
 function addCard(evt) {
     evt.preventDefault();
     addCardToServ(cardName.value, cardImage.value)
-    .then((data)=>{
+    .then((result)=>{
       const newCard = {link: cardImage.value, name: cardName.value}
-      rendorCard(newCard)
+      rendorCard(newCard, result.likes.length, 'bb12d784f20a16c7281b0c6e')
       closePopup(popupAddCardBox);
-      console.log(data)
+      console.log(result.likes.length)
     })
   }
   
@@ -139,29 +139,36 @@ function addCard(evt) {
 
 // смена имени и описания
 
+
 function editProfilePopup(evt) {
     evt.preventDefault();
-    updateUserData(userName.value, userDiscription.value)
-    .then(() =>{
+    updateUserData(userName.value, userDiscription.value, avaUrl.value)
+    .then((data) =>{
       userNameNow.textContent = userName.value;
       userDiscriptionNow.textContent = userDiscription.value;
       closePopup(popupEditProfileBox);
-    })
+      console.log(data)
+    }) 
   }
 
   popupEditProfile.addEventListener('submit', (evt) =>{
     rendorLoading(true, popupEditProfileSubBtn)
     editProfilePopup(evt)
     search()
-    .finally(()=>{rendorLoading(false, popupEditProfileSubBtn)})
+    .finally(()=>{
+      rendorLoading(false, popupEditProfileSubBtn)
+    })      
   })
- 
+
+// Смена аватара 
+
   function editAva(evt) {
     evt.preventDefault();
     updateUserData(userName.value, userDiscription.value, avaUrl.value)
-    .then(() => {
+    .then((data) => {
       ava.src = avaUrl.value;
       closePopup(popupEditAvatarBox);
+      console.log(data)
     })
   }
   
@@ -177,5 +184,5 @@ function editProfilePopup(evt) {
     userNameNow.textContent = data.name
     userDiscriptionNow.textContent = data.about
     ava.src = data.avatar;
-    console.log(data.avatar)
+    return data
   })
