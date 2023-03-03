@@ -1,27 +1,39 @@
 import { createCard } from './card.js';
-import { popupAddCardSubBtn } from './modal.js';
 
 const elContainer = document.querySelector('.elements__container');
 
-export function rendorCard(el, likes, id) {
+export function renderCard(el, likes, id) {
   return elContainer.prepend(createCard(el, likes, id))
 }
 
 
-export function checkResponse(res){
-  if(res.ok){return res.json()}
+export function checkResponse(res) {
+  if (res.ok) {
+    return res.json()
+  }
   return Promise.reject(res.status)
 }
-export function checkError(err){
-  console.log(`Ошибка: ${err}`)
+export function renderLoading(isLoading, btn, btnText, loadingText) {
+  if (isLoading) {
+    btn.textContent = loadingText
+  } else {
+    btn.textContent = btnText
+  }
 }
 
-export function rendorLoading(isLoading, btn){
-  if (isLoading){
-    btn.textContent = 'Сохранение...'
-  }else if(btn === popupAddCardSubBtn){
-    btn.textContent = 'Создать'
-  }else{
-    btn.textContent = 'Сохранить'
-  }
+export function handleSubmit(request, evt, loadingText = "Сохранение...") {
+  evt.preventDefault();
+  const subBtn = evt.submitter;
+  const initialText = subBtn.textContent;
+  renderLoading(true, subBtn, initialText, loadingText);
+  request()
+    .then(() => {
+      evt.target.reset();
+    })
+    .catch(err => {
+      console.error(`Ошибка: ${err}`);
+    })
+    .finally(() => {
+      renderLoading(false, subBtn, initialText);
+    });
 }

@@ -1,15 +1,12 @@
-.popup-box {
+.popup__overlay {
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    background: rgba(0,0,0,.5);
     position: fixed;
     display: flex;
-    transition: .2s;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
+    cursor: pointer;
 }

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Место</title>
 </head>
+
 <body class="page">
   <!--Header-->
   <header class="header">
@@ -33,77 +35,87 @@
   <footer class="footer">
     <p class="footer__copyright">&copy;2020 Mesto Russia</p>
   </footer>
+
   <!--Попапы-->
-  
-  <div class="popup-box" id="popupEditAvatarBox">
-    <div class="popup"></div>
-    <form name="popup" class="popup__container avatar-popup" novalidate>
+
+  <div class="popup" id="popupEditAvatar">
+    <div class="popup__overlay"></div>
+    <form name="popupEditAvatar" class="popup__container avatar-popup" novalidate>
       <button type="button" class="popup__close-icon button-hover"></button>
       <h3 class="popup__title">Обновить аватар</h3>
       <fieldset class="popup__field">
-        <input type="url" class="popup__edit-text avatar-popup__url"  placeholder="Ссылка на картинку" name="src" id="avaInput" required>
+        <input type="url" class="popup__edit-text avatar-popup__url" placeholder="Ссылка на картинку" name="src"
+          id="avaInput" required>
         <span class="avaInput-eror popup__edit-text_eror"></span>
       </fieldset>
       <button type="submit" class="popup__submit-button">Сохранить</button>
     </form>
   </div>
 
-  <div class="popup-box" id="popupEditProfileBox">
-    <div class="popup"></div>
-    <form name="popup" class="popup__container" novalidate>
+  <div class="popup" id="popupEditProfile">
+    <div class="popup__overlay"></div>
+    <form name="popupEditProfile" class="popup__container" novalidate>
       <button type="button" class="popup__close-icon button-hover"></button>
       <h3 class="popup__title">Редактировать профиль</h3>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text"  placeholder="Имя" name="user-name" id="nameInput" pattern="^[a-zA-Za-яА-Я\s\-]+$" minlength="2" maxlength="40" required>
+        <input type="text" class="popup__edit-text" placeholder="Имя" name="user-name" id="nameInput"
+          pattern="^[a-zA-Za-яА-ЯёЁ\s\-]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" minlength="2"
+          maxlength="40" required>
         <span class="popup__edit-text_eror nameInput-eror"></span>
       </fieldset>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text"  placeholder="О себе" name="user-description" id="descriptionInput" pattern="^[a-zA-Za-яА-Я\s\-]+$" minlength="2" maxlength="200" required>
+        <input type="text" class="popup__edit-text" placeholder="О себе" name="user-description" id="descriptionInput"
+          pattern="^[a-zA-Za-яА-ЯёЁ\s\-]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" minlength="2"
+          maxlength="200" required>
         <span class="descriptionInput-eror popup__edit-text_eror"></span>
       </fieldset>
       <button type="submit" class="popup__submit-button">Сохранить</button>
     </form>
   </div>
-  
-  <div class="popup-box" id="popupAddCardBox">
-    <div class="popup"></div>
-    <form name="popup" class="popup__container" novalidate>
+
+  <div class="popup" id="popupAddCard">
+    <div class="popup__overlay"></div>
+    <form name="popupAddCard" class="popup__container" novalidate>
       <button type="button" class="popup__close-icon button-hover"></button>
       <h3 class="popup__title">Новое место</h3>
       <fieldset class="popup__field">
-        <input type="text" class="popup__edit-text" placeholder="Название" name="place" id="nameInput" pattern="^[a-zA-Za-яА-Я\s\-]+$" minlength="2" maxlength="30" required>
+        <input type="text" class="popup__edit-text" placeholder="Название" name="place" id="nameInput"
+          pattern="^[a-zA-Za-яА-ЯёЁ\s\-]+$" minlength="2" maxlength="30" required>
         <span class="nameInput-eror popup__edit-text_eror"></span>
       </fieldset>
       <fieldset class="popup__field">
-        <input type="url" class="popup__edit-text"  placeholder="Ссылка на картинку" name="src" id="linkInput" required>
+        <input type="url" class="popup__edit-text" placeholder="Ссылка на картинку" name="src" id="linkInput" required>
         <span class="linkInput-eror popup__edit-text_eror"></span>
       </fieldset>
       <button type="submit" class="popup__submit-button">Создать</button>
     </form>
   </div>
-  
-  <div class="popup-box" id="popupOpenImageBox">
+
+  <div class="popup" id="popupOpenImage">
     <div class="popup-image__overlay"></div>
     <div name="popup" class="popup-image">
       <button type="button" class="popup__close-icon button-hover"></button>
-      <img class="popup-image__image" >
+      <img class="popup-image__image">
       <h3 class="popup-image__caption"></h3>
-    </form>
-  </div>
+      </form>
+    </div>
 
-  <!--Темплейт-->
-  <template id="template">
-    <li class="element">
-      <img class="element__image">
-      <button type="button" class="element__trash"></button>
-      <div class="element__container">
-        <h4 class="element__caption"></h4>>
-        <div class="element__like-container">
-          <button type="button" class="element__like"></button>
-          <h5 class="element__like-number"></h5>
+    <!--Темплейт-->
+    <template id="template">
+      <li class="element">
+        <img class="element__image">
+        <button type="button" class="element__trash"></button>
+        <div class="element__container">
+          <h4 class="element__caption"></h4>
+          <div class="element__like-container">
+            <button type="button" class="element__like"></button>
+            <h5 class="element__like-number"></h5>
+          </div>
         </div>
-      </div>
-    </li>
-  </template>
+      </li>
+    </template>
 </body>
+
 </html>

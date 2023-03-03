@@ -11,18 +11,24 @@ export function enableValidation (config) {
 export function setEventListener(formEl, config) {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector))
   const btn = formEl.querySelector(config.submitButtonSelector)
-  btnStatus(inputList, btn, config)
+  toggleButtonState(inputList, btn, config)
+  formEl.addEventListener('reset', () =>{ 
+    setTimeout(() => {
+      toggleButtonState(inputList, btn, config)
+    }, 0);
+  })
+
   inputList.forEach(inputEl => {
     inputEl.addEventListener('input', () => {
       checkValidity(formEl, inputEl, config)
-      btnStatus(inputList, btn, config)
+      toggleButtonState(inputList, btn, config)
     })
   })
 }
 
 export function checkValidity(formEl, inputEl, config) {
   if (inputEl.validity.patternMismatch) {
-    inputEl.setCustomValidity("Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы");
+    inputEl.setCustomValidity(inputEl.dataset.errorMessage);
   } else {
     inputEl.setCustomValidity("");
   }
@@ -53,7 +59,7 @@ function hasInvalidInput(inputList) {
   })
 }
 
-function btnStatus(inputList, btn, config) {
+function toggleButtonState(inputList, btn, config) {
   if (hasInvalidInput(inputList)){
     btnInactive(btn, config)
   }else {

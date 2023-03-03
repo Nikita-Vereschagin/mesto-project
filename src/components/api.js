@@ -11,67 +11,67 @@ const config = {
 
 
 function request(endpoint, options) {
-  return fetch(config.baseUrl + endpoint, options).then(checkResponse).catch(checkError)
+  return fetch(config.baseUrl + endpoint, options).then(checkResponse)
 }
 
-export function search(){
+export function search() {
   return request('/users/me', {
     headers: config.headers
   })
 }
 
-export function getCardData(){
- return request('/cards', {headers: config.headers})
+export function getCardData() {
+  return request('/cards', { headers: config.headers })
 }
 
-export function updateUserData(nameDate, aboutData){
-    return request('/users/me', {
+export function updateUserData(nameDate, aboutData) {
+  return request('/users/me', {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-        name: nameDate,
-        about: aboutData,
-      })
+      name: nameDate,
+      about: aboutData,
+    })
   })
 }
 
-export function updateAva(avaData){
+export function updateAva(avaData) {
   return request('/users/me/avatar ', {
     method: 'PATCH',
     headers: config.headers,
     body: JSON.stringify({
-        avatar: avaData,
-      })
+      avatar: avaData,
+    })
   })
 }
 
-export function addCardToServ(nameDate, linkData){
-    return request('/cards', {
+export function addCardToServ(nameDate, linkData) {
+  return request('/cards', {
     method: 'POST',
     headers: config.headers,
     body: JSON.stringify({
-        name: nameDate,
-        link: linkData,
-      })
+      name: nameDate,
+      link: linkData,
     })
+  })
 }
 
-export function putLike(id){
+export function putLike(id) {
   return request(`/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers
   })
 }
 
-export function deleteLike(id){
+export function deleteLike(id) {
   return request(`/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })
 }
 
-export function deleteCardFromServ(id){
-  return request(`/cards/${id}`,{ 
+export function deleteCardFromServ(id) {
+  return request(`/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })

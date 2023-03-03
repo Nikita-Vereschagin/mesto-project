@@ -1,51 +1,42 @@
-import { rendorCard } from './utils.js';
+import { renderCard } from './utils.js';
 import { btnInactive } from './validate.js'
 import { hideEror } from './validate.js';
 import { enableValidation } from './validate.js';
 import { addCardToServ, updateUserData } from './api.js';
 import { updateAva } from './api.js';
-import { search } from './api.js';
-import { rendorLoading } from './utils.js';
+import { handleSubmit } from './utils.js';
 
 // обЪявление всех составляющих popupEditProfile
 
-const popupEditProfileBox = document.querySelector('#popupEditProfileBox')
-const popupEditProfileOverlay = popupEditProfileBox.querySelector('.popup');
-const popupEditProfile = popupEditProfileBox.querySelector('.popup__container');
-const userName = popupEditProfile.querySelector('#nameInput');
-const userDiscription = popupEditProfile.querySelector('#descriptionInput');
-const popupEditProfileCloseIcon = popupEditProfile.querySelector('.popup__close-icon');
+const popupEditProfile = document.querySelector('#popupEditProfile')
+export const popupEditProfileContainer = popupEditProfile.querySelector('.popup__container');
+const userName = popupEditProfileContainer.querySelector('#nameInput');
+const userDiscription = popupEditProfileContainer.querySelector('#descriptionInput');
 const popupEditProfileButton = document.querySelector('#buttonEditProfilePopup');
-const userNameNow = document.querySelector('.profile__user-name');
-const userDiscriptionNow = document.querySelector('.profile__user-description');
-const popupEditProfileSubBtn = popupEditProfile.querySelector('.popup__submit-button')
+export const userNameNow = document.querySelector('.profile__user-name');
+export const userDiscriptionNow = document.querySelector('.profile__user-description');
+export const popupEditProfileSubBtn = popupEditProfileContainer.querySelector('.popup__submit-button')
 
 // обЪявление всех составляющих AddCardPopup
 
-const popupAddCardBox = document.querySelector('#popupAddCardBox')
-const popupAddCardOverlay = popupAddCardBox.querySelector('.popup');
-const popupAddCard = popupAddCardBox.querySelector('.popup__container');
-const cardName = popupAddCard.querySelector('#nameInput');
-const cardImage = popupAddCard.querySelector('#linkInput');
-const popupAddCardCloseIcon = popupAddCard.querySelector('.popup__close-icon');
+const popupAddCard = document.querySelector('#popupAddCard')
+export const popupAddCardContainer = popupAddCard.querySelector('.popup__container');
+const cardName = popupAddCardContainer.querySelector('#nameInput');
+const cardImage = popupAddCardContainer.querySelector('#linkInput');
 const popupAddCardButton = document.querySelector('#buttonAddCardPopup');
-export const popupAddCardSubBtn = popupAddCard.querySelector('.popup__submit-button')
+export const popupAddCardSubBtn = popupAddCardContainer.querySelector('.popup__submit-button')
 
 // объявление всех составляющих openImagePopup
 
-export const popupOpenImageBox = document.querySelector('#popupOpenImageBox');
-const popupOpenImageOverlay = popupOpenImageBox.querySelector('.popup-image__overlay');
+export const popupOpenImageBox = document.querySelector('#popupOpenImage');
 export const popupOpenImage = popupOpenImageBox.querySelector('.popup-image');
-const popupOpenImageCloseIcon = popupOpenImage.querySelector('.popup__close-icon');
 
-const popupEditAvatarBox = document.querySelector('#popupEditAvatarBox')
-const popupEditAvatarOverlay = popupEditAvatarBox.querySelector('.popup');
-const popupEditAvatar = popupEditAvatarBox.querySelector('.popup__container');
-const avaUrl = popupEditAvatar.querySelector('#avaInput');
-const popupEditAvatarCloseIcon = popupEditAvatar.querySelector('.popup__close-icon');
+const popupEditAvatar = document.querySelector('#popupEditAvatar')
+export const popupEditAvatarContainer = popupEditAvatar.querySelector('.popup__container');
+const avaUrl = popupEditAvatarContainer.querySelector('#avaInput');
 const popupEditAvatarButton = document.querySelector('#popupEditAvatarButton');
-const ava = document.querySelector('.profile__avatar-image');
-const popupEditAvatarSubBtn = popupEditAvatar.querySelector('.popup__submit-button')
+export const ava = document.querySelector('.profile__avatar-image');
+export const popupEditAvatarSubBtn = popupEditAvatarContainer.querySelector('.popup__submit-button')
 
 const config = {
   formSelector: '.popup__container',
@@ -61,123 +52,103 @@ enableValidation(config)
 // открытие попапа
 
 export function openPopup(popup) {
-    popup.classList.add('visibility')
-    document.addEventListener('keydown', closeByEsc)    
-  }
+  popup.classList.add('popup_opened')
+  document.addEventListener('keydown', closeByEsc)
+}
 
-  popupEditProfileButton.addEventListener('click', openPopupEditProfile);
-  
-  function openPopupEditProfile () {
-    openForm(popupEditProfileBox,config)
-    userName.value = userNameNow.textContent
-    userDiscription.value = userDiscriptionNow.textContent
-  }
+popupEditProfileButton.addEventListener('click', openPopupEditProfile);
 
-  popupAddCardButton.addEventListener('click', () => { 
-    openForm(popupAddCardBox,config)
-    popupAddCard.reset()
+function openPopupEditProfile() {
+  openForm(popupEditProfile, config)
+  userName.value = userNameNow.textContent
+  userDiscription.value = userDiscriptionNow.textContent
+}
+
+popupAddCardButton.addEventListener('click', () => {
+  openForm(popupAddCard, config)
+  popupAddCardContainer.reset()
+});
+
+function openForm(popup, config) {
+  const inputList = popup.querySelectorAll('.popup__edit-text')
+  inputList.forEach(inputEl => {
+      hideEror(popup, inputEl, config)
   });
 
-  function openForm(popup,config) {
-    const btn = popup.querySelector('.popup__submit-button')
-    btnInactive(btn, config)
-    const inputEl = popup.querySelector('.popup__edit-text')
-    hideEror(popup, inputEl, config)
-    openPopup(popup)
-  }
+  openPopup(popup)
+}
 
-  popupEditAvatarButton.addEventListener('click',() => { 
-    openForm(popupEditAvatarBox,config)
-    popupEditAvatar.reset()
-  });
-  // закрытие попапа
-  
-  function closePopup(popup) {
-    popup.classList.remove('visibility');
-    document.removeEventListener('keydown', closeByEsc)
-  }
-  
-  popupEditProfileCloseIcon.addEventListener('click', () => { closePopup(popupEditProfileBox) });
-  popupEditProfileOverlay.addEventListener('click', () => { closePopup(popupEditProfileBox) });
-  
-  popupAddCardCloseIcon.addEventListener('click', () => { closePopup(popupAddCardBox) });
-  popupAddCardOverlay.addEventListener('click', () => { closePopup(popupAddCardBox) });
-  
-  popupEditAvatarCloseIcon.addEventListener('click', () => { closePopup(popupEditAvatarBox) });
-  popupEditAvatarOverlay.addEventListener('click', () => { closePopup(popupEditAvatarBox) });
-  
-  popupOpenImageCloseIcon.addEventListener('click', () => { closePopup(popupOpenImageBox) });
-  popupOpenImageOverlay.addEventListener('click', () => { closePopup(popupOpenImageBox) });
-  
-  function closeByEsc(evt){
-    if (evt.key === 'Escape'){
-      const activePopup = document.querySelector('.popup-box.visibility')
-      closePopup(activePopup)
-    }
-  }
+popupEditAvatarButton.addEventListener('click', () => {
+  openForm(popupEditAvatar, config)
+  popupEditAvatarContainer.reset()
+});
+// закрытие попапа
 
-  
-  // Добавление карточек попапом
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEsc)
+}
 
-function addCard(evt) {
-    evt.preventDefault();
-    const newCard = {link: cardImage.value, name: cardName.value}
-    addCardToServ(newCard.name, newCard.link)
-    .then((result)=>{
-      rendorCard(newCard, result.likes.length, result._id)
-      closePopup(popupAddCardBox);
+const popups = document.querySelectorAll('.popup')//я даже не задумывался об этом, спасибо вам большое
+
+popups.forEach((popup) => {
+    popup.addEventListener('mousedown', evt => {
+        if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__close-icon')) {
+          closePopup(popup)
+        }
     })
-    .finally(()=>{rendorLoading(false, popupAddCardSubBtn)})
+})
+
+function closeByEsc(evt) {
+  if (evt.key === 'Escape') {
+    const activePopup = document.querySelector('.popup.popup_opened')
+    closePopup(activePopup)
   }
-  
-  popupAddCard.addEventListener('submit', (evt) =>{
-    rendorLoading(true, popupAddCardSubBtn)
-    addCard(evt)
-    
-  });
+}
+
+
+// Добавление карточек попапом
+
+export function addCard(evt) {
+  const newCard = { link: cardImage.value, name: cardName.value }
+  function makeRequest(){
+    return addCardToServ(newCard.name, newCard.link)
+      .then(cardData => {
+        renderCard(cardData, cardData.likes.length, cardData._id)
+        closePopup(popupAddCard);
+      })
+  }
+  handleSubmit(makeRequest, evt)
+}
 
 // смена имени и описания
 
 
-function editProfilePopup(evt) {
-    evt.preventDefault();
-    updateUserData(userName.value, userDiscription.value, ava.src)
-    .then((data) =>{
+export function editProfilePopup(evt) {
+  function makeRequest(){
+    return updateUserData(userName.value, userDiscription.value, ava.src)
+    .then(() => {
       userNameNow.textContent = userName.value;
       userDiscriptionNow.textContent = userDiscription.value;
-      closePopup(popupEditProfileBox);
-      return data
-    }) 
-    .finally(()=>{rendorLoading(false, popupEditProfileSubBtn)})   
+      closePopup(popupEditProfile);
+    })
   }
-
-  popupEditProfile.addEventListener('submit', (evt) =>{
-    rendorLoading(true, popupEditProfileSubBtn)
-    editProfilePopup(evt)    
-  })
+  handleSubmit(makeRequest, evt)
+}
 
 // Смена аватара 
 
-  function editAva(evt) {
-    evt.preventDefault();
-    updateAva(avaUrl.value)
-    .then((data) => {
+export function editAva(evt) {
+  function makeRequest(){
+    return updateAva(avaUrl.value)
+    .then(() => {
       ava.src = avaUrl.value;
-      closePopup(popupEditAvatarBox);
-      console.log(data)
+      closePopup(popupEditAvatar);
     })
-    .finally(()=>{rendorLoading(false, popupEditAvatarSubBtn)})
   }
-  
-  popupEditAvatar.addEventListener('submit', (evt) => {
-    rendorLoading(true, popupEditAvatarSubBtn)
-    editAva(evt)   
-  });
+  handleSubmit(makeRequest, evt)
+}
 
-  search()
-  .then(data =>{
-    userNameNow.textContent = data.name;
-    userDiscriptionNow.textContent = data.about;
-    ava.src = data.avatar;
-    return data
-  })
