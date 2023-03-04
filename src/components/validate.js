@@ -1,6 +1,6 @@
-export function enableValidation (config) {
+export function enableValidation(config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector))
-  formList.forEach(function (formEl){
+  formList.forEach(function (formEl) {
     formEl.addEventListener('submit', evt => {
       evt.preventDefault()
     })
@@ -12,7 +12,7 @@ export function setEventListener(formEl, config) {
   const inputList = Array.from(formEl.querySelectorAll(config.inputSelector))
   const btn = formEl.querySelector(config.submitButtonSelector)
   toggleButtonState(inputList, btn, config)
-  formEl.addEventListener('reset', () =>{ 
+  formEl.addEventListener('reset', () => {
     setTimeout(() => {
       toggleButtonState(inputList, btn, config)
     }, 0);
@@ -34,14 +34,14 @@ export function checkValidity(formEl, inputEl, config) {
   }
   if (!(inputEl.validity.valid)) {
     showEror(formEl, inputEl, inputEl.validationMessage, config)
-  }else{
+  } else {
     hideEror(formEl, inputEl, config)
   }
 }
 
 function showEror(formEl, inputEl, erorMsg, config) {
   const erorEl = formEl.querySelector(`.${inputEl.id}-eror`)
-  inputEl.classList.add(config.inputErrorClass) 
+  inputEl.classList.add(config.inputErrorClass)
   erorEl.textContent = erorMsg;
   erorEl.classList.add(config.errorClass)
 }
@@ -60,19 +60,19 @@ function hasInvalidInput(inputList) {
 }
 
 function toggleButtonState(inputList, btn, config) {
-  if (hasInvalidInput(inputList)){
+  if (hasInvalidInput(inputList)) {
     btnInactive(btn, config)
-  }else {
+  } else {
     btnActive(btn, config)
   }
 }
 
-function btnActive(btn, config){
+function btnActive(btn, config) {
   btn.classList.remove(config.inactiveButtonClass)
   btn.disabled = false
 }
 
-export function btnInactive(btn, config){
+export function btnInactive(btn, config) {
   btn.classList.add(config.inactiveButtonClass)
   btn.disabled = true
 }

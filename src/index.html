@@ -82,7 +82,9 @@
       <h3 class="popup__title">Новое место</h3>
       <fieldset class="popup__field">
         <input type="text" class="popup__edit-text" placeholder="Название" name="place" id="nameInput"
-          pattern="^[a-zA-Za-яА-ЯёЁ\s\-]+$" minlength="2" maxlength="30" required>
+          pattern="^[a-zA-Za-яА-ЯёЁ\s\-]+$"
+          data-error-message="Разрешены только латинские, кириллические буквы, знаки дефиса и пробелы" minlength="2"
+          maxlength="30" required>
         <span class="nameInput-eror popup__edit-text_eror"></span>
       </fieldset>
       <fieldset class="popup__field">
@@ -94,7 +96,7 @@
   </div>
 
   <div class="popup" id="popupOpenImage">
-    <div class="popup-image__overlay"></div>
+    <div class="popup__overlay popup-image__overlay"></div>
     <div name="popup" class="popup-image">
       <button type="button" class="popup__close-icon button-hover"></button>
       <img class="popup-image__image">

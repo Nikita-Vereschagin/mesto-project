@@ -4,6 +4,7 @@ import { popupOpenImageBox } from './modal.js';
 import { deleteCardFromServ, search } from './api.js';
 import { putLike } from './api.js';
 import { deleteLike } from './api.js';
+import { userId } from '../index.js';
 
 const elTemplate = document.querySelector('#template').content;
 
@@ -26,22 +27,16 @@ export function createCard(el, likes, id) {
             });
     })
 
-    search()
-        .then(userData => {
-            if (el.owner._id !== userData._id) {
-                elementTrash.style.display = 'none'
-            } else {
-                elementTrash.style.display = 'flex'
-            }
-            el.likes.forEach(arr => {
-                if (arr._id === userData._id) {
-                    elementLike.classList.add('element__like_status_active')
-                }
-            })
-        })
-        .catch(err => {
-            console.error(`Ошибка: ${err}`)
-        });
+    if (el.owner._id !== userId) {
+        elementTrash.style.display = 'none'
+    } else {
+        elementTrash.style.display = 'flex'
+    }
+    el.likes.forEach(arr => {
+        if (arr._id === userId) {
+            elementLike.classList.add('element__like_status_active')
+        }
+    })
 
 
 

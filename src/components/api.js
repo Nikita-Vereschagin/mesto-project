@@ -1,4 +1,3 @@
-import { checkError } from "./utils"
 import { checkResponse } from "./utils"
 
 const config = {

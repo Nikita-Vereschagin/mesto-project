@@ -1,10 +1,9 @@
 import { renderCard } from './utils.js';
-import { btnInactive } from './validate.js'
 import { hideEror } from './validate.js';
-import { enableValidation } from './validate.js';
 import { addCardToServ, updateUserData } from './api.js';
 import { updateAva } from './api.js';
 import { handleSubmit } from './utils.js';
+import { config } from '../index.js';
 
 // обЪявление всех составляющих popupEditProfile
 
@@ -38,16 +37,7 @@ const popupEditAvatarButton = document.querySelector('#popupEditAvatarButton');
 export const ava = document.querySelector('.profile__avatar-image');
 export const popupEditAvatarSubBtn = popupEditAvatarContainer.querySelector('.popup__submit-button')
 
-const config = {
-  formSelector: '.popup__container',
-  inputSelector: '.popup__edit-text',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_inactive',
-  inputErrorClass: 'popup__edit-text_type_eror',
-  errorClass: 'popup__edit-text_eror'
-}
 
-enableValidation(config)
 
 // открытие попапа
 
@@ -59,22 +49,21 @@ export function openPopup(popup) {
 popupEditProfileButton.addEventListener('click', openPopupEditProfile);
 
 function openPopupEditProfile() {
-  openForm(popupEditProfile, config)
+  openForm(popupEditProfile)
   userName.value = userNameNow.textContent
   userDiscription.value = userDiscriptionNow.textContent
 }
 
 popupAddCardButton.addEventListener('click', () => {
-  openForm(popupAddCard, config)
+  openForm(popupAddCard)
   popupAddCardContainer.reset()
 });
 
-function openForm(popup, config) {
+function openForm(popup) {
   const inputList = popup.querySelectorAll('.popup__edit-text')
   inputList.forEach(inputEl => {
-      hideEror(popup, inputEl, config)
+    hideEror(popup, inputEl, config)
   });
-
   openPopup(popup)
 }
 
@@ -92,14 +81,17 @@ function closePopup(popup) {
 const popups = document.querySelectorAll('.popup')//я даже не задумывался об этом, спасибо вам большое
 
 popups.forEach((popup) => {
-    popup.addEventListener('mousedown', evt => {
-        if (evt.target.classList.contains('popup_opened')) {
-            closePopup(popup)
-        }
-        if (evt.target.classList.contains('popup__close-icon')) {
-          closePopup(popup)
-        }
-    })
+  popup.addEventListener('mousedown', evt => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__close-icon')) {
+      closePopup(popup)
+    }
+    if (evt.target.classList.contains('popup__overlay')) {
+      closePopup(popup)
+    }
+  })
 })
 
 function closeByEsc(evt) {
@@ -114,7 +106,7 @@ function closeByEsc(evt) {
 
 export function addCard(evt) {
   const newCard = { link: cardImage.value, name: cardName.value }
-  function makeRequest(){
+  function makeRequest() {
     return addCardToServ(newCard.name, newCard.link)
       .then(cardData => {
         renderCard(cardData, cardData.likes.length, cardData._id)
@@ -128,13 +120,13 @@ export function addCard(evt) {
 
 
 export function editProfilePopup(evt) {
-  function makeRequest(){
+  function makeRequest() {
     return updateUserData(userName.value, userDiscription.value, ava.src)
-    .then(() => {
-      userNameNow.textContent = userName.value;
-      userDiscriptionNow.textContent = userDiscription.value;
-      closePopup(popupEditProfile);
-    })
+      .then(() => {
+        userNameNow.textContent = userName.value;
+        userDiscriptionNow.textContent = userDiscription.value;
+        closePopup(popupEditProfile);
+      })
   }
   handleSubmit(makeRequest, evt)
 }
@@ -142,12 +134,12 @@ export function editProfilePopup(evt) {
 // Смена аватара 
 
 export function editAva(evt) {
-  function makeRequest(){
+  function makeRequest() {
     return updateAva(avaUrl.value)
-    .then(() => {
-      ava.src = avaUrl.value;
-      closePopup(popupEditAvatar);
-    })
+      .then(() => {
+        ava.src = avaUrl.value;
+        closePopup(popupEditAvatar);
+      })
   }
   handleSubmit(makeRequest, evt)
 }
